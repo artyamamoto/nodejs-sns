@@ -106,7 +106,7 @@ var TweetsManager = new (function() {
 				var u = self.users[account];
 				$li.find(".user-name").text(u.name);
 				$li.find(".user-status").html(u.status_img);
-				console.log($.dump(u));
+				//console.log($.dump(u));
 			}
 		});
 	};
