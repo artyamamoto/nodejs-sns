@@ -23,7 +23,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
+/** 
 app.use(express.cookieParser());
 app.use(express.session({
 	"secret" : "topsecret" , 
@@ -37,7 +37,7 @@ app.use(express.session({
 		"maxAge" : new Date(Date.now() + 86400)
 	}
 }));
-
+**/
 
 app.use(routes.pre.request);
 app.use(app.router);
