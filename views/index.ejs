@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include parts/html-header.ejs %>
+
+<script src="/js/main/main.js"></script>
+<script src="/js/main/login-manager.js"></script>
+<script src="/js/main/page-manager.js"></script>
+<script src="/js/main/tweets-manager.js"></script>
+
+  </head>
+  <body>
+    <% include parts/header.ejs %>
+	<!-- connecting -->
+	<div id="socket-connecting">
+		Now Connecting... Please wait
+	</div>
+	<!-- login -->
+	<div id="page-login" style="display: none;">
+		<h2>ログイン</h2>
+		<form action="javascript: void(0);" method="post" id="login-form">
+			<div class="form-error form-error-login"></div>
+			<table border="0">
+				<tr>
+					<th>アカウント</th>
+					<td><input type="text" name="account" value="" /></td>
+				</tr>
+                <tr>
+                    <th>パスワード</th>
+                    <td><input type="password" name="password" value="" /></td>
+                </tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="ログイン" /></td>
+					
+				</tr>
+			</table>
+			<div class="regist-link">
+				<a href="/regist/">登録</a>
+			</div>
+		</form>
+	</div>
+	<!-- mypage -->
+	<div id="page-mypage" style="display: none;">		
+		<h2>ようこそ <span class="user-name"></span>さん</h2>
+		<ul>
+			<li>最終ログイン日時: <span class="user-login"></span></li>
+			<li>最終ログアウト日時: <span class="user-logout"></span></li>
+		</ul>
+	</div>
+	<!-- friends -->
+    <div id="friend-list">
+        <div class="loading">Now Loading..</div>
+        <ul></ul>
+    </div>
+
+	<!-- tweet-form -->
+	<div id="page-tweets" style="display: none;">
+		<div id="tweet-form">
+			<form action="javascript: void(0) ;">
+				<div class="form-error form-error-tweet"></div>
+				<textarea id="tweet-message"></textarea>
+				<ul class="tweet-colors">
+					<li><label><input type="radio" name="color" value="#fff" /><span style="color: #fff;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#f00" /><span style="color: #f00;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#00f" /><span style="color: #00f;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#090" /><span style="color: #090;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#c0c" /><span style="color: #c0c;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#cc0" /><span style="color: #cc0;">■</span></label></li>
+					<li><label><input type="radio" name="color" value="#0cc" /><span style="color: #0cc;">■</span></label></li>
+				</ul>
+				<input type="submit" value="つぶやく" />
+			</form>
+		</div>
+		<div id="tweet-list">
+			<ul></ul>
+			<div id="tweet-more">
+				<input type="button" class="btn" value="次の15件をみる" />
+			</div>
+		</div>
+	</div>
+
+    <% include parts/footer.ejs %>
+
+<script id="tmpl-friend" type="text/x-jquery-tmpl">
+<li data-user-account="${user_account}" data-user-status="${status}">
+	<div class="friend-account">[${account}]</div>
+	<div class="friend-name">お名前：${name}</div>
+	<div class="friend-status">{{html status_img}}</div>
+	<div class="friend-access">${access}</div>
+</li>
+</script>
+
+
+<script id="tmpl-tweet" type="type/x-jquery-tmpl">
+<li data-id="${id}" data-user-account="${user_account}">
+	<div class="tweet-user">{{if color}}<span style="color: ${color};">■</span>{{/if}} 
+		<span class="user-account">[${user_account}]</span>
+		<span class="user-name"></span>
+		<span class="user-status"></span>
+	</div>
+	<div class="tweet-message">${message}</div>
+</li>
+
+</script>
+  </body>
+</html>

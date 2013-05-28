@@ -1,0 +1,44 @@
+
+var-border-color = #999
+
+vendor(prop,args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  -ms-{prop} args
+  -o-{prop} args
+  {prop} args
+
+border-radius()
+  vendor('border-radius',arguments);
+
+box-shadow()
+  vendor('box-shadow', arguments);
+
+gradient(a,b)
+  background-color a
+  background-image -moz-linear-gradient(top,a,b)
+  background-image -webkit-gradient(linear, left top, left bottom , from(a), to(b))
+
+
+box1()
+  margin 12px auto 0
+  padding 12px
+  
+  border 1px solid var-border-color
+  border-radius(4px)
+  box-shadow(4px, 4px,5px,rgba(0,0,0,0.4))
+
+clearfix()
+  * html & 
+    zoom 1
+  *+html &
+    zoom 1
+
+  &:after
+    height 1px
+    overflow hidden
+    visibility hidden
+    content "."
+    display block
+    clear both 
+
