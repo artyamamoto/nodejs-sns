@@ -323,6 +323,11 @@ background
   height: auto;
   border: none;
 }
+#page-tweets #tweet-list li .tweet-time {
+  text-align: right;
+  font-size: 10px;
+  color: #999;
+}
 .user-photo {
   display: inline-block;
   width: 100px;
