@@ -7,6 +7,9 @@
     "ejs": "*",
     "stylus": "*" , 
 
+    "cluster" : "*",
+    "redis" : "*",
+
     "connect-mongo" : "*",     
     "async" : "*",
     "socket.io" : "*" , 
