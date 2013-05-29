@@ -106,7 +106,7 @@ background
 }
 #viewport {
   max-width: 640px;
-  min-width: 320px;
+  min-width: 300px;
   margin: 12px auto 0;
   padding: 12px;
   border: 1px solid #999;
@@ -120,6 +120,11 @@ background
   -ms-box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
   -o-box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
   box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
+}
+@media only screen and (max-width:640px) {
+  #viewport {
+    margin: 0 12px 0;
+  }
 }
 #header {
   border-bottom: 1px solid #999;
