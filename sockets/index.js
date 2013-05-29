@@ -66,11 +66,12 @@ exports.init = function(server,app) {
         });
 	
 		//=== timer for sync friends 
-//		if (socket_num == 1) {
-//			timer_id = setInterval(function() {
-//				friends.sync(socket, true);
-//			}, 1000);
-//		}
+		//=== is it neseccery ?
+		if (socket_num == 1) {
+			timer_id = setInterval(function() {
+				friends.sync(socket, true);
+			}, 1000);
+		}
     });
 	web_io.listen(app);
 }
