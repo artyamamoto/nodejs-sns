@@ -14,7 +14,7 @@
     <% include parts/header.ejs %>
 	<!-- connecting -->
 	<div id="socket-connecting">
-		Now Connecting... Please wait
+		<img src="/images/loading.gif" / >
 	</div>
 	<!-- login -->
 	<div id="page-login" style="display: none;">
@@ -31,8 +31,14 @@
                     <td><input type="password" name="password" value="" /></td>
                 </tr>
 				<tr>
-					<td colspan="2"><input type="submit" value="ログイン" /></td>
-					
+					<td colspan="2">
+						<div class="form-submit">
+							<input type="submit" value="ログイン" />
+						</div>
+						<div class="form-loading" style="display: none;">
+							<img src="/images/loading.gif" / >
+						</div>
+					</td>
 				</tr>
 			</table>
 			<div class="regist-link">
@@ -52,12 +58,19 @@
 			<div style="overflow: hidden; width: 1px ; height: 1px ; display: inline-block;">
 				<input type="file" name="photo" id="form-photo" />
 			</div>
-			<input type="button" id="form-photo-btn" value="画像をアップロード" />
+			<div class="form-submit">
+				<input type="button" id="form-photo-btn" value="画像をアップロード" />
+			</div>
+			<div class="form-loading" style="display: none;">
+				<img src="/images/loading.gif" / >
+			</div>
 		</div>
 	</div>
 	<!-- friends -->
     <div id="friend-list">
-        <div class="loading">Now Loading..</div>
+        <div class="loading">
+			<img src="/images/loading.gif" / >
+		</div>
         <ul></ul>
     </div>
 
@@ -76,7 +89,12 @@
 					<li><label><input type="radio" name="color" value="#cc0" /><span style="color: #cc0;">■</span></label></li>
 					<li><label><input type="radio" name="color" value="#0cc" /><span style="color: #0cc;">■</span></label></li>
 				</ul>
-				<input type="submit" value="つぶやく" />
+				<div class="form-submit">
+					<input type="submit" value="つぶやく" />
+				</div>
+				<div class="form-loading" style="display: none;">
+					<img src="/images/loading.gif" / >
+				</div>
 			</form>
 		</div>
 		<div id="tweet-list">

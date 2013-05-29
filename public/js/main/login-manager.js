@@ -5,14 +5,25 @@ var LoginManager = new (function() {
 	
 	self.setSocket = function(sock) {
 		self.socket = sock;
-        $('#login-form').on("submit",function() {
+        $('#login-form').live("submit",function() {
             var $form = $(this);
+			if (! $form.find('input[name="account"]').val() || 
+				! $form.find('input[name="password"]').val())
+			{
+				$('<div />').text('アカウント、またはパスワードが入力されていません。').appendTo('.form-error-login');
+				return false;
+			}	
+			
             var datas = {
                 "account" : $form.find('input[name="account"]').val(),
                 "password" : $form.find('input[name="password"]').val()
             };
             $.cookie("login-account-val" , datas.account, {"expire" : 365});
             $('.form-error').html('');
+			
+			$("#login-form .form-submit").hide();
+			$("#login-form .form-loading").show();
+			
             self.socket.emit('login' , datas );
             return false;
         });
@@ -20,10 +31,17 @@ var LoginManager = new (function() {
 		//=== show errors 
         self.socket.on('login error' , function(errmsg){
             $('<div />').text(errmsg).appendTo('.form-error-login');
+
+			$("#login-form .form-submit").show();
+			$("#login-form .form-loading").hide();
+
         } );
 		//=== login ok
         self.socket.on('login ok' , function(user) {
-            self.setUser(user);
+			$("#login-form .form-submit").show();
+			$("#login-form .form-loading").hide();
+            
+			self.setUser(user);
             PageManager.showMypage();
         });
 		//=== session =====================
@@ -37,7 +55,7 @@ var LoginManager = new (function() {
             PageManager.showMypage();
         }); 
 		//=== logout ======================
-        $("#logout").on("click",function() {
+        $("#logout").live("click",function() {
             if (self.isLogin()) {
                 if (! confirm ('ログアウトしてよろしいでしょうか？'))
                     return false;

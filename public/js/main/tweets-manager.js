@@ -6,8 +6,13 @@ var TweetsManager = new (function() {
 	self.setSocket = function(sock) {
 		self.socket = sock;
 		//self.socket.on('');
-		
+
+		var locked = false;
+				
 		$("#tweet-form form").unbind('submit').on("submit" , function() {
+			if (locked)
+				return false;
+			
 			$form = $(this);
 			$(".form-error-tweet").html("");
 			
@@ -15,7 +20,10 @@ var TweetsManager = new (function() {
 				alert("ログインしていません。");
 				return false;
 			}
-			
+			if (! $form.find("#tweet-message").val()) {
+				$('<div />').text("入力されていません。").appendTo('.form-error-tweet');
+				return false;	
+			}			
 			var data = {
 				"message" : $form.find("#tweet-message").val(),
 				"color" : null
@@ -26,6 +34,11 @@ var TweetsManager = new (function() {
 					return false;
 				}
 			});
+
+            locked = true;
+            $("#tweet-form .form-submit").hide();
+            $("#tweet-form .form-loading").show();
+			
 			self.socket.emit('tweet post', data);
 			
 			return false;
@@ -33,9 +46,17 @@ var TweetsManager = new (function() {
 		self.socket.on('tweet post ok' , function(tweet) {
 			$("#tweet-message").val("");
 			self.prependTweet(tweet);
+
+			locked = false;
+			$("#tweet-form .form-submit").show();
+			$("#tweet-form .form-loading").hide();
 		});
 		self.socket.on('tweet post error' , function(errmsg) {
 			$('<div />').text(errmsg).appendTo('.form-error-tweet');
+			
+			locked = false;
+			$("#tweet-form .form-submit").show();
+			$("#tweet-form .form-loading").hide();
 		});
 		self.socket.on('tweet post append' , function(tweet) {
 			self.appendTweet(tweet);

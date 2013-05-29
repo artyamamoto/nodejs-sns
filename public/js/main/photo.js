@@ -21,6 +21,10 @@ var Photo = new (function () {
                 var fileReader = new FileReader();
                 var type = file.type;
                 var data = {};
+				
+				$(".mypage-photo .form-submit").hide();
+				$(".mypage-photo .form-loading").show();
+				
                 fileReader.readAsBinaryString(file);
                 fileReader.onload = function(evt) {
                     data.bin = evt.target.result;
@@ -40,9 +44,14 @@ var Photo = new (function () {
 			else 
 				$("#page-mypage .user-photo").html('<img src="/images/no-photo.jpg" />');
 				
+			$(".mypage-photo .form-submit").show();
+            $(".mypage-photo .form-loading").hide();
+
 		});
 		self.socket.on('photo upload error' , function(errmsg) {
 			alert('ファイルのアップロード時にエラーが発生しました。' + errmsg);
+            $(".mypage-photo .form-submit").show();
+            $(".mypage-photo .form-loading").hide();
 		});
 
 	};

@@ -3,50 +3,7 @@
   <head>
     <% include parts/html-header.ejs %>
 
-
-<script>
-jQuery(function() {
-	var inputs = {};
-
-	$('#regist-form input[name]').each(function() {
-		var $input = $(this);
-		var name = $input.attr('name');
-		$input.before('<div class="form-error form-error-' + name + '"></div>');
-		
-		inputs[name] = $input;
-	});
-
-	var socket = io.connect('http://' + location.host );
-	socket.on('connect' , function() {
-		console.log('connected.');
-	});
-	$("#regist-form").submit(function() {
-		var $form = $(this);
-		var data = {};
-		for (var name in inputs)
-			data[name] = inputs[name].val();
-
-		$('.form-error').html('');
-		socket.emit('regist validate' , data);
-		return false;
-	});
-	socket.on('regist validate error' , function(errors) {
-		for (var i in errors) {
-			var k = errors[i][0];
-			var errmsg = errors[i][1];
-			$('<div />').text(errmsg).appendTo('.form-error-' + k);
-		}
-	});
-	socket.on('regist validate ok' , function(datas) {
-		if (! confirm('入力された内容で登録してよろしいでしょうか？'))
-			return;
-		socket.emit('regist save' , datas);
-	});
-	socket.on('regist save ok' , function(user) {
-		location.href = '/regist/complete'
-	});
-});
-</script>
+<script src="/js/regist/regist.js"></script>
   </head>
   <body>
     <% include parts/header.ejs %>
@@ -73,7 +30,12 @@ jQuery(function() {
 
 
 		</table>
-        <input type="submit" value="登録" />
+		<div class="form-submit">
+       		<input type="submit" value="登録" />
+		</div>
+		<div class="form-loading" style="display: none;">
+			<img src="/images/loading.gif" / >
+		</div>
 		</div>
     </form>
     <% include parts/footer.ejs %>
