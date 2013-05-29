@@ -115,7 +115,6 @@ input[type="submit"]:focus {
 }
 #viewport {
   max-width: 640px;
-  min-width: 300px;
   margin: 12px auto 0;
   padding: 12px;
   border: 1px solid #999;
