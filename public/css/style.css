@@ -100,6 +100,7 @@ background
   background-image: -moz-linear-gradient(top, #00e, #003);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#00e), to(#003));
   color: #fff;
+  cursor: pointer;
 }
 .form-error div {
   color: #f00;
@@ -191,6 +192,24 @@ background
 #page-mypage table th {
   width: 30%;
 }
+* html #page-mypage {
+  zoom: 1;
+}
+*+html #page-mypage {
+  zoom: 1;
+}
+#page-mypage:after {
+  height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+  display: block;
+  clear: both;
+}
+#page-mypage .user-photo {
+  float: left;
+  margin-right: 8px;
+}
 #friend-list {
   margin: 12px auto 0;
   padding: 12px;
@@ -224,7 +243,7 @@ background
   display: inline-block;
   margin: 4px;
   padding: 8px;
-  width: 25%;
+  width: 124px;
   border: 1px solid #999;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -282,6 +301,39 @@ background
 #page-tweets #tweet-list li {
   border-bottom: 1px solid #999;
 }
+* html #page-tweets #tweet-list li {
+  zoom: 1;
+}
+*+html #page-tweets #tweet-list li {
+  zoom: 1;
+}
+#page-tweets #tweet-list li:after {
+  height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+  display: block;
+  clear: both;
+}
 #page-tweets #tweet-list li:last-child {
   border-bottom: none;
+}
+#page-tweets #tweet-list li .user-photo {
+  float: left;
+  margin-left: 8px;
+  height: auto;
+  border: none;
+}
+.user-photo {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #bbb;
+  padding: 10px;
+}
+.user-photo img {
+  max-width: 100px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
 }

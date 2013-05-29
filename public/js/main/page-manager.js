@@ -30,6 +30,11 @@ var PageManager = new (function() {
 		$("#page-mypage .user-login").text(dateformat(user.last_login_dt));
 		$("#page-mypage .user-logout").text(dateformat(user.last_logout_dt));
 
+		if (user.photo_path)
+			$("#page-mypage .user-photo").html('<a href="/photos/' + user.photo_path + '" target="_blank"><img src="/photos/' + user.photo_path + '" /></a>');
+		else 
+			$("#page-mypage .user-photo").html('<img src="/images/no-photo.jpg" />');
+	
 		self.showTweets();
 		
 		// self.showFriendList();
@@ -79,6 +84,10 @@ var PageManager = new (function() {
 			else 
 				friend.status_img = '<img src="/images/status_red.gif"/>';
 			
+			if (friend.photo_path) 
+				friend.photo_img = '<div class="user-photo"><a href="/photos/' + friend.photo_path + '" target="_blank"><img src="/photos/' + friend.photo_path + '" /></a></div>';
+			else 
+				friend.photo_img = '<div class="user-photo"><img src="/images/no-photo.jpg"/></div>';
 			$("#friend-list ul").append($("#tmpl-friend").tmpl(friend));
 			
 			self.users[friend.account] = friend;

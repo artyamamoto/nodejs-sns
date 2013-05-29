@@ -104,8 +104,13 @@ var TweetsManager = new (function() {
 		
 			if (self.users[account]) {
 				var u = self.users[account];
+				var photo = '<img src="/images/no-photo.jpg" />';
+				if (u.photo_path) 
+					photo = '<a href="/photos/' + u.photo_path + '" target="_blank"><img src="/photos/' + u.photo_path + '" /></a>';
+				
 				$li.find(".user-name").text(u.name);
 				$li.find(".user-status").html(u.status_img);
+				$li.find(".user-photo").html(photo);
 				//console.log($.dump(u));
 			}
 		});

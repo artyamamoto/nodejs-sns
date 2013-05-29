@@ -15,11 +15,13 @@ jQuery(function($) {
 		LoginManager.setSocket(socket);
 		PageManager.setSocket(socket);
 		TweetsManager.setSocket(socket);
+		Photo.setSocket(socket);
 		
 		if (LoginManager.cookie.get('login')) {
 			socket.emit('login session' , LoginManager.cookie.get('login') );
 		} else {
 			PageManager.showLogin();
 		}
+
 	});
 });

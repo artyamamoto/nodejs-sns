@@ -7,6 +7,7 @@
 <script src="/js/main/login-manager.js"></script>
 <script src="/js/main/page-manager.js"></script>
 <script src="/js/main/tweets-manager.js"></script>
+<script src="/js/main/photo.js"></script>
 
   </head>
   <body>
@@ -42,10 +43,17 @@
 	<!-- mypage -->
 	<div id="page-mypage" style="display: none;">		
 		<h2>ようこそ <span class="user-name"></span>さん</h2>
+		<div class="user-photo"></div>
 		<ul>
 			<li>最終ログイン日時: <span class="user-login"></span></li>
 			<li>最終ログアウト日時: <span class="user-logout"></span></li>
 		</ul>
+		<div class="mypage-photo">
+			<div style="overflow: hidden; width: 1px ; height: 1px ; display: inline-block;">
+				<input type="file" name="photo" id="form-photo" />
+			</div>
+			<input type="button" id="form-photo-btn" value="画像をアップロード" />
+		</div>
 	</div>
 	<!-- friends -->
     <div id="friend-list">
@@ -83,6 +91,7 @@
 
 <script id="tmpl-friend" type="text/x-jquery-tmpl">
 <li data-user-account="${user_account}" data-user-status="${status}">
+	<div class="friend-photo">{{html photo_img}}</div>
 	<div class="friend-account">[${account}]</div>
 	<div class="friend-name">お名前：${name}</div>
 	<div class="friend-status">{{html status_img}}</div>
@@ -94,6 +103,7 @@
 <script id="tmpl-tweet" type="type/x-jquery-tmpl">
 <li data-id="${id}" data-user-account="${user_account}">
 	<div class="tweet-user">{{if color}}<span style="color: ${color};">■</span>{{/if}} 
+		<div class="user-photo">{{html user_photo_img}}</div>
 		<span class="user-account">[${user_account}]</span>
 		<span class="user-name"></span>
 		<span class="user-status"></span>

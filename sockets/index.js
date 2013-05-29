@@ -7,6 +7,7 @@ var regist = require('./regist');
 var login = require('./login');
 var friends = require('./friends');
 var tweets = require('./tweets');
+var photo = require('./photo');
 
 var timer_id = -1;
 var socket_num = 0;
@@ -64,7 +65,15 @@ exports.init = function(server,app) {
         socket.on('tweet fetch before', function(tweet_id) {
             tweets.fetchBefore(socket, tweet_id);
         });
-	
+		//=== photo 
+		socket.on('photo upload' , function(data) {
+			photo.save(socket, data, function(path) {
+				socket.emit('photo upload ok' , path);
+				friends.sync(socket);
+			}, function(errmsg) {
+				socket.emit('photo upload error',errmsg);
+			});
+		});
 		//=== timer for sync friends 
 		//=== is it neseccery ?
 //		if (socket_num == 1) {
