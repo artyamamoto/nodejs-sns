@@ -69,7 +69,7 @@ exports.init = function(server,app) {
 		socket.on('photo upload' , function(data) {
 			photo.save(socket, data, function(path) {
 				socket.emit('photo upload ok' , path);
-				friends.sync(socket);
+				friends.sync(socket,true);
 			}, function(errmsg) {
 				socket.emit('photo upload error',errmsg);
 			});
