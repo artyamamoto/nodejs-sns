@@ -50,7 +50,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/login',routes.login.login);
+//app.get('/login',routes.login.login);
 //app.get(/\/regist\/([\w\d_\-]*?)/, routes.regist.get);
 //app.get(['/regist/:page','/regist/'], routes.regist.get);
 app.get('/regist/' , routes.regist.form);
