@@ -256,10 +256,9 @@ background
   -o-box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
   box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
 }
-#friend-list ul li .friend-account {
-  display: inline-block;
-}
-#friend-list ul li .friend-name {
+#friend-list ul li .friend-account,
+#friend-list ul li .friend-name,
+#friend-list ul li .friend-status {
   display: inline-block;
 }
 #page-tweets #tweet-form {
