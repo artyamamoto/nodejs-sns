@@ -62,12 +62,14 @@ var PageManager = new (function() {
 		if (! LoginManager.isLogin()) 
 			return ;
 		
+	//	if (! self.isFriendUpdated(friends)) 
+	//		return;
+		
 		$("#friend-list .loading").hide();
 		$("#friend-list ul").html("");
 		$("#friend-list").show();
 
-		if (! self.users )
-			self.users = {};
+		self.users = {};
 		
 		for (var i in friends) {
 			var friend = friends[i];
@@ -83,5 +85,8 @@ var PageManager = new (function() {
 		}
 		TweetsManager.syncTweetsUsers(self.users);
 	};
+/*	self.isFriendUpdated = function(friends) {
+		return true;
+	}; */
 	return self;
 })();

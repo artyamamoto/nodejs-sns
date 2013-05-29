@@ -206,11 +206,22 @@ background
   -o-box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
   box-shadow: 4px 4px 5px rgba(0,0,0,0.4);
 }
-#friend-list ul {
-  display: table-row;
+* html #friend-list ul {
+  zoom: 1;
+}
+*+html #friend-list ul {
+  zoom: 1;
+}
+#friend-list ul:after {
+  height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+  display: block;
+  clear: both;
 }
 #friend-list ul li {
-  display: table-cell;
+  display: inline-block;
   margin: 4px;
   padding: 8px;
   width: 25%;
