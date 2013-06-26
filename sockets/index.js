@@ -14,6 +14,13 @@ var socket_num = 0;
 
 exports.init = function(server,app) {
     var io = socket_io.listen(server);
+	var opts = {"host":"127.0.0.1", "port":"6379"};
+	io.set("store", new socket_io.RedisStore({
+		"redisPub":opts , 
+		"redisSub":opts , 
+		"redisClient":opts 
+	}));
+
     io.sockets.on('connection' , function(socket) {
 		socket_num++;
         socket.on('disconnect' , function() {
