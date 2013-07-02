@@ -113,6 +113,9 @@ input[type="submit"]:focus {
 .form-error div {
   color: #f00;
 }
+canvas {
+  cursor: pointer;
+}
 #viewport {
   max-width: 640px;
   margin: 12px auto 0;

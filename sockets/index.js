@@ -81,7 +81,31 @@ exports.init = function(server,app) {
 //				friends.sync(socket, true);
 ///			}, 1000);
 //		}
-    });
+
+
+		//=== ついでにお絵描きも同じURLで実装
+/**		var points = [];
+		var point_cnt = 0;
+		socket.on('fetch-drawing', function() {
+			if (points.length > 0) {
+				for (var i in points) {
+					var p = points[i];
+					socket.emit('push-drawing',p[0],p[1],p[2],p[3],p[4]);
+				}
+			}	
+		});
+		socket.on('post-drawing' , function(x1,y1,x2,y2,color) {
+			points.push([x1,y1,x2,y2,color]);
+			socket.emit('push-drawing' , x1,y1,x2,y2,color);
+			socket.broadcast.emit('push-drawing' , x1,y1,x2,y2,color);
+		});
+		socket.on('delete-drawing' , function() {
+			points = [];
+			socket.emit('delete-drawing-client');
+			socket.broadcast.emit('delete-drawing-client');
+		});
+**/
+	 });
 	web_io.listen(app);
 }
 

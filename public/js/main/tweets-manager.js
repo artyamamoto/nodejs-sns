@@ -8,7 +8,13 @@ var TweetsManager = new (function() {
 		//self.socket.on('');
 
 		var locked = false;
-				
+		
+		var canvas = $("#tweet-image").get(0);
+		var context;
+		if (canvas.getContext) {
+			context = canvas.getContext('2d');
+		}
+		
 		$("#tweet-form form").unbind('submit').on("submit" , function() {
 			if (locked)
 				return false;
@@ -34,6 +40,10 @@ var TweetsManager = new (function() {
 					return false;
 				}
 			});
+			try {
+				data.image = $form.find("#tweet-image").get(0).toDataURL();
+				context.clearRect(0,0,100,100);
+			} catch(e){}
 
             locked = true;
             $("#tweet-form .form-submit").hide();
@@ -91,13 +101,53 @@ var TweetsManager = new (function() {
         self.socket.on('tweet fetch before error', function(errmsg) {
             alert('Tweet fetch before error:' + errmsg);
         });
+		//=== canvas 
+		var is_drawing = false;
+		$("#tweet-image").unbind("mousedown").bind("mousedown", function(evt) {
+			console.log('mousedown');
+			is_drawing = true;
+			var x = evt.pageX - $(this).offset().left;
+			var y = evt.pageY - $(this).offset().top;
+			lastX = x;
+			lastY = y;
+		});
+		$("#tweet-image").unbind("mouseup").bind("mouseup", function() {
+			console.log('mouseup');
+			is_drawing = false;
+		});
+		$("#tweet-image").unbind("mouseleave").bind("mouseleave", function() {
+			console.log('mouseleave');
+			is_drawing = false;
+		});
+		$("#tweet-image").unbind("mousemove").bind("mousemove", function(evt) {
+			if (!is_drawing) 
+				return;
+			var x = evt.pageX - $(this).offset().left;
+			var y = evt.pageY - $(this).offset().top;
+			
+
+			context.beginPath();
+			context.strokeStyle = "#000000";
+			context.moveTo(lastX,lastY);
+			context.lineTo(x,y);
+			context.stroke();
+			context.closePath();
+
+			lastX = x;
+			lastY = y;
+		});
+	};
+	self.filterTweet = function(tweet) {
+		//tweet.tweet_image_img = '<img src="' + tweet.image + '">';
+		return tweet;
 	};
 	self.prependTweet = function(tweet) {
+		//tweet = self.filterTweet(tweet);
 		$('#tweet-list ul').prepend($("#tmpl-tweet").tmpl(tweet));
 		self.syncTweetsUsers();
 	};
 	self.appendTweet = function(tweet) {
-		// console.log($.dump(tweet));
+		//tweet = self.filterTweet(tweet);
 		$('#tweet-list ul').append($("#tmpl-tweet").tmpl(tweet));
 		self.syncTweetsUsers();
 	};

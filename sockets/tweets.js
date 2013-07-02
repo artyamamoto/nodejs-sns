@@ -56,6 +56,7 @@ exports.save = function(socket,data) {
 				"user_account" : user.account , 
 				"message" : data.message , 
 				"color": data.color , 
+				"image" : (data.image || ""), 
 				"ins_dt" : new Date() 
 			};
 			var tweet = mydb.Tweet.build(tweetdata)
