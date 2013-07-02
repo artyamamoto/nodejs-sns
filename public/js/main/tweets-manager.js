@@ -34,13 +34,13 @@ var TweetsManager = new (function() {
 				"message" : $form.find("#tweet-message").val(),
 				"color" : null
 			};
-			$form.find("[name=\"color\"]").each(function() {
+/*			$form.find("[name=\"color\"]").each(function() {
 				if ($(this).attr("checked"))  {
 					data.color = $(this).val();
 					return false;
 				}
 			});
-			try {
+*/			try {
 				data.image = $form.find("#tweet-image").get(0).toDataURL();
 				context.clearRect(0,0,100,100);
 			} catch(e){}
@@ -102,6 +102,16 @@ var TweetsManager = new (function() {
             alert('Tweet fetch before error:' + errmsg);
         });
 		//=== canvas 
+		function getColor() {
+			var color = '#000000';
+			$("#tweet-form form").find("[name=\"color\"]").each(function() {
+				if ($(this).attr("checked"))  {
+					color = $(this).val();
+					return false;
+				}
+			});
+			return color;
+		}
 		var is_drawing = false;
 		$("#tweet-image").unbind("mousedown").bind("mousedown", function(evt) {
 			console.log('mousedown');
@@ -127,7 +137,7 @@ var TweetsManager = new (function() {
 			
 
 			context.beginPath();
-			context.strokeStyle = "#000000";
+			context.strokeStyle = getColor();
 			context.moveTo(lastX,lastY);
 			context.lineTo(x,y);
 			context.stroke();
